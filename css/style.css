@@ -243,15 +243,27 @@ a:hover {
     }
 
     .search-bar {
-        flex-direction: column;
-        gap: 10px;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
     }
 
-    .search-bar input,
+    .search-bar input {
+        flex: 1;
+        min-width: 0;
+
+        border: 1px solid #d6d6d6;
+        border-right: none;
+        border-radius: 8px 0 0 8px;
+    }
+
     .search-bar button {
-        width: 100%;
-        border-radius: 8px;
+        width: auto;
+
         border: 1px solid var(--primary);
+        border-radius: 0 8px 8px 0;
+
+        white-space: nowrap;
     }
 
     .problem-navigation {
