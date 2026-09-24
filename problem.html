@@ -12,28 +12,38 @@
             }
         };
     </script>
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-        async>
-    </script>
 </head>
-
+<a href="index.html">← Home</a>
+<a href="chapter6.html">Chapter 6</a>
 <h1 id="problem-title"></h1>
 
-<section>
-    <h2>Answer</h2>
-    <p id="answer"></p>
+<section id="problem-content">
+    <p id="problem-prompt"></p>
+    <div id="problem-expression"></div>
 </section>
 
 <section>
-    <h2>Hint</h2>
-    <p id="hint"></p>
+    <button id="hint-button">Show Hint</button>
+    <div id="hint-box" class="solution-box" hidden>
+        <h2>Hint</h2>
+        <p id="hint"></p>
+    </div>
 </section>
 
 <section>
-    <h2>Explanation</h2>
-    <div id="steps"></div>
+    <button id="answer-button">Show Answer</button>
+    <div id="answer-box" class="solution-box" hidden>
+        <h2>Answer</h2>
+        <p id="answer"></p>
+    </div>
+</section>
+
+<section>
+    <button id="solution-button">Show Full Solution</button>
+    <div id="solution-box" class="solution-box" hidden>
+        <h2>Explanation</h2>
+        <div id="steps"></div>
+    </div>
 </section>
 
 <section>
@@ -41,7 +51,15 @@
     <p id="common-mistake"></p>
 </section>
 
+<nav class="problem-navigation">
+    <a id="previous-problem" href="#">← Previous</a>
+    <a id="next-problem" href="#">Next →</a>
+</nav>
+
 <!-- do not change the order -->
-<script src="data/solutions.js"></script>
-<script src="js/problem.js"></script>
+<!-- math formatting load -->
+<script
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<script type="module" src="js/problem.js"></script>
 </html>

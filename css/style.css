@@ -1,0 +1,260 @@
+/* basic colors */
+:root {
+    --primary: rgb(111, 156, 235);
+    --primary-light: rgb(235, 242, 253);
+    --text: #222;
+    --border: #dddddd;
+    --background: #ffffff;
+}
+
+body {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 24px;
+
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+h1 {
+    margin-bottom: 24px;
+    color: var(--text);
+}
+
+h2 {
+    margin-top: 32px;
+    color: var(--text);
+}
+
+section {
+    margin-bottom: 32px;
+}
+
+#problem-content {
+    padding: 24px;
+    margin-bottom: 32px;
+
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+button {
+    padding: 10px 16px;
+
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+
+    background-color: white;
+    color: var(--primary);
+
+    font-size: 1rem;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* problem link in the chapter page */
+.problem-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.problem-link {
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+
+    color: var(--primary);
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+.problem-link:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* next/prev link */
+.problem-navigation {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 48px;
+}
+
+.problem-navigation a {
+    text-decoration: none;
+}
+
+/* solution part box */
+.solution-section {
+    margin-bottom: 20px;
+}
+
+.solution-box {
+    margin-top: 12px;
+    padding: 20px 24px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background-color: var(--primary-light);
+}
+
+.solution-box h2 {
+    margin-top: 0;
+}
+
+.solution-step {
+    padding: 16px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.solution-step:last-child {
+    border-bottom: none;
+}
+
+.solution-step h3 {
+    color: var(--primary);
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+/* search bar */
+.search-bar {
+    display: flex;
+    width: 100%;
+    max-width: 520px;
+
+    margin: 24px 0;
+}
+
+.search-bar input {
+    flex: 1;
+
+    padding: 12px 14px;
+
+    border: 1px solid #d6d6d6;
+    border-right: none;
+
+    border-radius: 10px 0 0 10px;
+
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-bar input:focus {
+    border-color: var(--primary);
+}
+
+.search-bar button {
+    padding: 12px 18px;
+
+    border: 1px solid var(--primary);
+    border-radius: 0 10px 10px 0;
+
+    background-color: var(--primary);
+    color: white;
+
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    opacity: 0.9;
+}
+
+/* links */
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* problem links */
+.problem-link {
+    display: inline-block;
+    padding: 8px 14px;
+
+    border: 1px solid var(--primary);
+    border-radius: 8px;
+
+    color: var(--primary);
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+.problem-link:hover {
+    background-color: var(--primary);
+    color: white;
+    text-decoration: none;
+}
+
+/* chapter links */
+.chapter-link {
+    display: block;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    color: var(--text);
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+.chapter-link:hover {
+    border-color: var(--primary);
+    background-color: var(--primary-light);
+    text-decoration: none;
+}
+
+/* pre/next problems links */
+.problem-navigation a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.problem-navigation a:hover {
+    text-decoration: underline;
+}
+
+/* mobile interactive design */
+@media (max-width: 600px) {
+    body {
+        padding: 24px 16px;
+    }
+
+    .search-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-bar input,
+    .search-bar button {
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid var(--primary);
+    }
+
+    .problem-navigation {
+        gap: 20px;
+    }
+}

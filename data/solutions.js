@@ -1,8 +1,24 @@
-const solutions = [
+export const solutions = [
     {
         chapter: 6,
         section: "6.1",
-        problem: 1,
+        problem: 3,
+        answer: "7",
+        hint: "place holder",
+        explanation: `
+            place holder
+        `
+    },
+    {
+        chapter: 6,
+        section: "6.1",
+        problem: 24,
+
+        prompt:
+            "Find a formula for the inverse of the function.",
+
+        expression:
+            "h(x)=\\frac{6-3x}{5x+7}",
 
         answer:
             "\\( h^{-1}(x)=\\frac{6-7x}{5x+3} \\)",
@@ -39,17 +55,6 @@ const solutions = [
 
         commonMistake:
             "Be careful with distribution at \\(x\\)\\((5y+7\\))."
-    },
-
-    {
-        chapter: 6,
-        section: "6.1",
-        problem: 3,
-        answer: "7",
-        hint: "place holder",
-        explanation: `
-            place holder
-        `
     }
 ];
 
