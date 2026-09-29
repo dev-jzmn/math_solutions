@@ -225,6 +225,11 @@ a:hover {
     text-decoration: none;
 }
 
+/* navigation */
+.breadcrumb {
+    color: var(--primary);
+}
+
 /* pre/next problems links */
 .problem-navigation a {
     color: var(--primary);

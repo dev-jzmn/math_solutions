@@ -1,4 +1,5 @@
 import { solutions } from "../data/solutions.js";
+import { chapters } from "../data/chapters.js";
 
 const params = new URLSearchParams(window.location.search);
 
@@ -20,11 +21,37 @@ function loadProblem() {
 
     if (!solution) {
         document.getElementById("problem-title").textContent =
-            "Solution not found";
-        return; 
+            "Problem not found";
+
+        document.getElementById("problem-content").textContent =
+            "The requested problem does not exist.";
+
+        return;
     }
 
-    
+    if (!chapter || !section || !problemNumber) {
+        // invalid URL
+        return;
+    }
+
+    // get chapter info to show it on the top
+    const chapterInfo = chapters[chapter];
+
+    const chapterLink =
+        document.getElementById("chapter-link");
+
+    chapterLink.href =
+        `chapter.html?chapter=${chapter}` +
+        `#section-${section.replace(".", "-")}`;
+
+    chapterLink.textContent =
+        `Chapter ${chapter} - ${chapterInfo.title}`;
+
+    document.getElementById("section-name").textContent =
+        `${section} - ${chapterInfo.sections[section]}`;
+
+
+    // set problem info
     document.getElementById("problem-title").textContent =
         `Section ${section} — Problem ${problemNumber}`;
 
