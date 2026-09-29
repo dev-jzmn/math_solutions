@@ -1,31 +1,55 @@
-import { solutions } from "../data/solutions.js";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+const supabaseUrl = "https://mbupfomfbsrsorcrjlsr.supabase.co";
+const supabaseKey = "sb_publishable_XC7ALstTwgtB6zQIHwzTuQ_VOp0LF83";
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const form = document.getElementById("problem-search");
 const input = document.getElementById("search-input");
 const message = document.getElementById("search-message");
 
-form.addEventListener("submit", function (event) {
-    event.preventDefault();
+async function searchProblem() {
+    const searchText = input.value
+        .trim()
+        .replace("#", "");
 
-    const searchText = input.value.trim();
+    const parts = searchText.split(/\s+/);
 
-    const cleanedText = searchText.replace("#", "");
-    const parts = cleanedText.split(/\s+/);
+    if (parts.length < 2) {
+        message.textContent =
+            "Enter a section and problem number, for example 6.1 24.";
+        return;
+    }
 
     const section = parts[0];
     const problemNumber = Number(parts[1]);
 
-    const solution = solutions.find(item =>
-        item.section === section &&
-        item.problem === problemNumber
-    );
+    const { data: solution, error } = await supabase
+        .from("solutions")
+        .select("chapter, section, problem")
+        .eq("section", section)
+        .eq("problem", problemNumber)
+        .maybeSingle();
 
-    if (solution) {
-        window.location.href =
-            `problem.html?chapter=${solution.chapter}` +
-            `&section=${solution.section}` +
-            `&problem=${solution.problem}`;
-    } else {
-        message.textContent = "Problem not found.";
+    if (error) {
+        console.error("Search error:", error);
+        message.textContent = "Something went wrong.";
+        return;
     }
+
+    if (!solution) {
+        message.textContent = "Problem not found.";
+        return;
+    }
+
+    window.location.href =
+        `problem.html?chapter=${solution.chapter}` +
+        `&section=${solution.section}` +
+        `&problem=${solution.problem}`;
+}
+
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    searchProblem();
 });

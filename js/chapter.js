@@ -1,87 +1,95 @@
-import { solutions } from "../data/solutions.js";
 import { chapters } from "../data/chapters.js";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const params = new URLSearchParams(window.location.search);
+const supabaseUrl = "https://mbupfomfbsrsorcrjlsr.supabase.co";
+const supabaseKey = "sb_publishable_XC7ALstTwgtB6zQIHwzTuQ_VOp0LF83";
 
-const chapterNumber = Number(params.get("chapter"));
-const sectionNumber = Number(params.get("section"));
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-const chapterInfo = chapters[chapterNumber];
+async function loadChapter() {
+    const params = new URLSearchParams(window.location.search);
+    const chapterNumber = Number(params.get("chapter"));
 
-if (!chapterInfo) {
-    document.getElementById("chapter-title").textContent =
-        "Chapter not found";
+    const chapterInfo = chapters[chapterNumber];
 
-    document.getElementById("chapter-content").textContent =
-        "The requested chapter does not exist.";
-} else {
+    if (!chapterInfo) {
+        document.getElementById("chapter-title").textContent =
+            "Chapter not found";
+        return;
+    }
+
     document.getElementById("chapter-title").textContent =
         `Chapter ${chapterNumber} — ${chapterInfo.title}`;
 
-    const chapterContent =
-    document.getElementById("chapter-content");
+    const { data: chapterProblems, error } = await supabase
+        .from("solutions")
+        .select("chapter, section, problem")
+        .eq("chapter", chapterNumber)
+        .order("section", { ascending: true })
+        .order("problem", { ascending: true });
 
-    const chapterProblems = solutions
-        .filter(item => item.chapter === chapterNumber)
-        .sort((a, b) => {
-            if (a.section !== b.section) {
-                return Number(a.section) - Number(b.section);
-            }
-
-            return a.problem - b.problem;
-        });
+    if (error) {
+        console.error("Supabase error:", error);
+        return;
+    }
 
     const sections = {};
 
-
-    document.getElementById("chapter-title").textContent =
-        `Chapter ${chapterNumber} — ${chapterInfo.title}`;
-    const sectionTitle =
-        chapterInfo.sections[sectionNumber];
-
     chapterProblems.forEach(item => {
         if (!sections[item.section]) {
-            sections[item.section] = {
-                title: item.sectionTitle,
-                problems: []
-            };
+            sections[item.section] = [];
         }
 
-        sections[item.section].problems.push(item);
+        sections[item.section].push(item);
     });
 
-    Object.entries(sections).forEach(([sectionNumber, sectionData]) => {
-        const sectionElement = document.createElement("section");
-        sectionElement.id =
-            `section-${sectionNumber.replace(".", "-")}`;
-        const heading = document.createElement("h2");
+    const chapterContent =
+        document.getElementById("chapter-content");
 
-        heading.textContent =
-        `${sectionNumber} — ${chapterInfo.sections[sectionNumber]}`;
+    Object.entries(sections).forEach(
+        ([sectionNumber, problems]) => {
 
-        sectionElement.appendChild(heading);
+            const sectionElement =
+                document.createElement("section");
 
-        const problemList = document.createElement("div");
+            sectionElement.id =
+                `section-${sectionNumber.replace(".", "-")}`;
 
-        problemList.classList.add("problem-list");
+            const heading =
+                document.createElement("h2");
 
-        sectionData.problems.forEach(item => {
-            const link = document.createElement("a");
+            heading.textContent =
+                `${sectionNumber} — ${chapterInfo.sections[sectionNumber]}`;
 
-            link.href =
-                `problem.html?chapter=${item.chapter}` +
-                `&section=${item.section}` +
-                `&problem=${item.problem}`;
+            sectionElement.appendChild(heading);
 
-            link.textContent = `Problem ${item.problem}`;
-            link.classList.add("problem-link");
+            const problemList =
+                document.createElement("div");
 
-            problemList.appendChild(link);
-        });
+            problemList.classList.add("problem-list");
 
-        sectionElement.appendChild(problemList);
+            problems.forEach(item => {
+                const link =
+                    document.createElement("a");
 
-        chapterContent.appendChild(sectionElement);
-    });
+                link.href =
+                    `problem.html?chapter=${item.chapter}` +
+                    `&section=${item.section}` +
+                    `&problem=${item.problem}`;
+
+                link.textContent =
+                    `Problem ${item.problem}`;
+
+                link.classList.add("problem-link");
+
+                problemList.appendChild(link);
+            });
+
+            sectionElement.appendChild(problemList);
+            chapterContent.appendChild(sectionElement);
+        }
+    );
 }
+
+loadChapter();
 

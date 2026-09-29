@@ -1,4 +1,10 @@
-import { solutions } from "../data/solutions.js";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+const supabaseUrl = "https://mbupfomfbsrsorcrjlsr.supabase.co";
+const supabaseKey = "sb_publishable_XC7ALstTwgtB6zQIHwzTuQ_VOp0LF83";
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 import { chapters } from "../data/chapters.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -11,13 +17,20 @@ console.log(chapter);
 console.log(section);
 console.log(problemNumber);
 
-// load problems from soultions.js
-function loadProblem() {
-    const solution = solutions.find(item =>
-        item.chapter === chapter &&
-        item.section === section &&
-        item.problem === problemNumber
-    );
+// load problems from supabase solution table
+async function loadProblem() {
+    const { data: solution, error } = await supabase
+        .from("solutions")
+        .select("*")
+        .eq("chapter", chapter)
+        .eq("section", section)
+        .eq("problem", problemNumber)
+        .single();
+
+    console.log("solution:", solution);
+    console.log("error:", error);
+
+
 
     if (!solution) {
         document.getElementById("problem-title").textContent =
@@ -84,13 +97,60 @@ function loadProblem() {
     });
 
     document.getElementById("common-mistake").textContent =
-        solution.commonMistake ?? "None";
+        solution.common_mistake ?? "None";
+
+    const { data: sectionProblems, error: sectionError } = await supabase
+        .from("solutions")
+        .select("chapter, section, problem")
+        .eq("chapter", chapter)
+        .eq("section", section)
+        .order("problem", { ascending: true });
+
+    if (sectionError) {
+        console.error(sectionError);
+        return;
+    }
+
+    const currentIndex = sectionProblems.findIndex(
+        item => item.problem === problemNumber
+    );
+
+    const previousLink = document.getElementById("previous-problem");
+    const nextLink = document.getElementById("next-problem");
+
+    if (currentIndex > 0) {
+        const previous = sectionProblems[currentIndex - 1];
+
+        previousLink.href =
+            `problem.html?chapter=${previous.chapter}` +
+            `&section=${previous.section}` +
+            `&problem=${previous.problem}`;
+
+        previousLink.textContent =
+            `← Problem ${previous.problem}`;
+    } else {
+        previousLink.style.visibility = "hidden";
+    }
+
+    if (currentIndex < sectionProblems.length - 1) {
+        const next = sectionProblems[currentIndex + 1];
+
+        nextLink.href =
+            `problem.html?chapter=${next.chapter}` +
+            `&section=${next.section}` +
+            `&problem=${next.problem}`;
+
+        nextLink.textContent =
+            `Problem ${next.problem} →`;
+    } else {
+        nextLink.style.visibility = "hidden";
+    }
 
     MathJax.typesetPromise();
 }
 
 // buttons for hints/answers/solutions
-function setupToggle(buttonId, boxId, showText, hideText) {
+async function setupToggle(buttonId, boxId, showText, hideText) {
     const button = document.getElementById(buttonId);
     const box = document.getElementById(boxId);
 
@@ -103,49 +163,6 @@ function setupToggle(buttonId, boxId, showText, hideText) {
             button.textContent = hideText;
         }
     });
-}
-
-// previous / next question navigation
-const sectionProblems = solutions
-    .filter(item =>
-        item.chapter === chapter &&
-        item.section === section
-    )
-    .sort((a, b) => a.problem - b.problem);
-
-const currentIndex = sectionProblems.findIndex(
-    item => item.problem === problemNumber
-);
-
-const previousLink = document.getElementById("previous-problem");
-const nextLink = document.getElementById("next-problem");
-
-if (currentIndex > 0) {
-    const previous = sectionProblems[currentIndex - 1];
-
-    previousLink.href =
-        `problem.html?chapter=${previous.chapter}` +
-        `&section=${previous.section}` +
-        `&problem=${previous.problem}`;
-
-    previousLink.textContent =
-        `← Problem ${previous.problem}`;
-} else {
-    previousLink.style.visibility = "hidden";
-}
-
-if (currentIndex < sectionProblems.length - 1) {
-    const next = sectionProblems[currentIndex + 1];
-
-    nextLink.href =
-        `problem.html?chapter=${next.chapter}` +
-        `&section=${next.section}` +
-        `&problem=${next.problem}`;
-
-    nextLink.textContent =
-        `Problem ${next.problem} →`;
-} else {
-    nextLink.style.visibility = "hidden";
 }
 
 setupToggle(
