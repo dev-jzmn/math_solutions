@@ -130,6 +130,20 @@ button:hover {
     margin-bottom: 8px;
 }
 
+mjx-container[jax="CHTML"][display="true"] {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    padding-bottom: 4px;
+}
+
+.step-input,
+#steps,
+#solution-box {
+    max-width: 100%;
+    min-width: 0;
+}
+
 /* search bar */
 .search-bar {
     display: flex;
