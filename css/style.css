@@ -275,3 +275,9 @@ a:hover {
         gap: 20px;
     }
 }
+
+/* for admin page */
+#problem-form label {
+    display: block;
+    margin-bottom: 16px;
+}

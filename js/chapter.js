@@ -43,6 +43,9 @@ async function loadChapter() {
         sections[item.section].push(item);
     });
 
+    document.getElementById("page-title").textContent =`${chapterNumber} ${chapters[chapterNumber].title}`;
+
+
     const chapterContent =
         document.getElementById("chapter-content");
 
