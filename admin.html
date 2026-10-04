@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Problem</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <section id="login-section">
+        <h2>Admin Login</h2>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Email"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+        >
+
+        <button type="button" id="login-button">
+            Log In
+        </button>
+
+        <p id="login-message"></p>
+    </section>
+
+    <main>
+        <h1>Add Problem</h1>
+
+        <form id="problem-form" hidden>
+
+            <label>
+                Chapter
+                <input type="number" id="chapter" required>
+            </label>
+
+            <label>
+                Section
+                <input
+                    type="text"
+                    id="section"
+                    placeholder="e.g. 6.2"
+                    required
+                >
+            </label>
+
+            <label>
+                Problem Number
+                <input type="number" id="problem" required>
+            </label>
+
+            <label>
+                Tags
+                <input
+                    type="text"
+                    id="tags"
+                    placeholder="derivative, exponential, quotient-rule"
+                >
+            </label>
+
+            <label>
+                Prompt
+                <textarea id="prompt" required></textarea>
+            </label>
+
+            <label>
+                Expression
+                <textarea
+                    id="expression"
+                    placeholder="e.g. y=\frac{e^x}{1-e^x}"
+                    required
+                ></textarea>
+            </label>
+
+            <label>
+                Answer
+                <textarea id="answer" required></textarea>
+            </label>
+
+            <label>
+                Hint
+                <textarea id="hint"></textarea>
+            </label>
+
+            <h2>Solution Steps</h2>
+
+            <div id="steps-container"></div>
+
+            <button type="button" id="add-step">
+                + Add Step
+            </button>
+
+            <label>
+                Common Mistake
+                <textarea id="common-mistake"></textarea>
+            </label>
+
+            <button type="submit">
+                Save Problem
+            </button>
+
+        </form>
+
+        <p id="form-message"></p>
+    </main>
+
+    <script type="module" src="js/admin.js"></script>
+
+</body>
+</html>
