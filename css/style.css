@@ -96,6 +96,11 @@ button:hover {
     text-decoration: none;
 }
 
+/* problem prompt style */
+#problem-prompt {
+    white-space: pre-line;
+}
+
 /* solution part box */
 .solution-section {
     margin-bottom: 20px;
@@ -130,6 +135,7 @@ button:hover {
     margin-bottom: 8px;
 }
 
+/* prevent from overflow of expressions */
 mjx-container[jax="CHTML"][display="true"] {
     overflow-x: auto;
     overflow-y: hidden;
