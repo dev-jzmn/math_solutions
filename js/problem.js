@@ -187,3 +187,67 @@ setupToggle(
 );
 
 loadProblem();
+
+// feedback section
+// send the feedback to the feedback table
+const openFeedbackButton =
+    document.getElementById("open-feedback");
+
+const feedbackSection =
+    document.getElementById("feedback-section");
+
+const cancelFeedbackButton =
+    document.getElementById("cancel-feedback");
+
+const feedbackButton =
+    document.getElementById("submit-feedback");
+
+openFeedbackButton.addEventListener("click", function () {
+    feedbackSection.hidden = false;
+    openFeedbackButton.hidden = true;
+});
+
+cancelFeedbackButton.addEventListener("click", function () {
+    feedbackSection.hidden = true;
+    openFeedbackButton.hidden = false;
+});
+
+feedbackButton.addEventListener("click", async function () {
+    const type =
+        document.getElementById("feedback-type").value;
+
+    const message =
+        document.getElementById("feedback-message").value.trim();
+
+    const statusMessage =
+        document.getElementById("feedback-status");
+
+    if (!message) {
+        statusMessage.textContent =
+            "Please enter a message.";
+        return;
+    }
+
+    const { error } = await supabase
+        .from("feedback")
+        .insert({
+            type: type,
+            chapter: chapter,
+            section: section,
+            problem: problemNumber,
+            message: message
+        });
+
+    if (error) {
+        console.error("Feedback error:", error);
+
+        statusMessage.textContent =
+            "Failed to submit feedback.";
+        return;
+    }
+
+    statusMessage.textContent =
+        "Thank you! Your feedback was submitted.";
+
+    document.getElementById("feedback-message").value = "";
+});

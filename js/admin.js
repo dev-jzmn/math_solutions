@@ -181,3 +181,103 @@ form.addEventListener("submit", async function (event) {
 
     console.log("Saved:", data);
 });
+
+let currentFeedbackFilter = "all";
+
+async function loadFeedback() {
+    let query = supabase
+        .from("feedback")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (currentFeedbackFilter !== "all") {
+        query = query.eq("status", currentFeedbackFilter);
+    }
+
+    const { data: feedbacks, error } = await query;
+
+    if (error) {
+        console.error("Feedback load error:", error);
+        return;
+    }
+
+    console.log(feedbacks);
+
+    renderFeedback(feedbacks);
+}
+
+function renderFeedback(feedbacks) {
+    const feedbackList =
+    document.getElementById("feedback-list");
+
+    feedbackList.innerHTML = "";
+
+    feedbacks.forEach(item => {
+        const feedbackDiv = document.createElement("div");
+
+        feedbackDiv.classList.add("feedback-item");
+
+        feedbackDiv.innerHTML = `
+            <h3>
+                ${item.type === "problem_request"
+                    ? "Problem Request"
+                    : "Solution Feedback"}
+            </h3>
+
+            <p>Section ${item.section} — Problem ${item.problem}</p>
+            <p>${item.message}</p>
+            <p>Status: ${item.status}</p>
+
+            <button class="reviewing-button">
+                Mark Reviewing
+            </button>
+
+            <button class="resolved-button">
+                Resolve
+            </button>
+        `;
+
+        feedbackDiv
+            .querySelector(".reviewing-button")
+            .addEventListener("click", () => {
+                updateFeedbackStatus(item.id, "reviewing");
+            });
+
+        feedbackDiv
+            .querySelector(".resolved-button")
+            .addEventListener("click", () => {
+                updateFeedbackStatus(item.id, "resolved");
+            });
+
+        feedbackList.appendChild(feedbackDiv);
+    });
+}
+
+const filterButtons =
+    document.querySelectorAll("#feedback-filters button");
+
+filterButtons.forEach(button => {
+    button.addEventListener("click", function () {
+        currentFeedbackFilter = button.dataset.status;
+
+        loadFeedback();
+    });
+});
+
+async function updateFeedbackStatus(id, newStatus) {
+    const { error } = await supabase
+        .from("feedback")
+        .update({
+            status: newStatus
+        })
+        .eq("id", id);
+
+    if (error) {
+        console.error("Feedback update error:", error);
+        return;
+    }
+
+    loadFeedback();
+}
+
+loadFeedback();

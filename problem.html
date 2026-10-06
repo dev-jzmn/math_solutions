@@ -60,6 +60,35 @@
     <p id="common-mistake"></p>
 </section>
 
+<button type="button" id="open-feedback">
+    Report an Issue
+</button>
+
+<section id="feedback-section" hidden>
+    <h2>Report an Issue</h2>
+
+    <select id="feedback-type">
+        <option value="solution_issue">Solution error</option>
+        <option value="unclear_explanation">Explanation unclear</option>
+        <option value="other">Other</option>
+    </select>
+
+    <textarea
+        id="feedback-message"
+        placeholder="Describe the issue..."
+    ></textarea>
+
+    <button type="button" id="submit-feedback">
+        Submit Feedback
+    </button>
+
+    <button type="button" id="cancel-feedback">
+        Cancel
+    </button>
+
+    <p id="feedback-status"></p>
+</section>
+
 <nav class="problem-navigation">
     <a id="previous-problem" href="#">← Previous</a>
     <a id="next-problem" href="#">Next →</a>
