@@ -176,6 +176,8 @@ form.addEventListener("submit", async function (event) {
             "Failed to save the problem.";
         return;
     }
+    else document.getElementById("form-message").textContent =
+            "Saved successfully.";
 
     console.log("Saved:", data);
 });

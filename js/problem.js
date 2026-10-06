@@ -58,10 +58,10 @@ async function loadProblem() {
         `#section-${section.replace(".", "-")}`;
 
     chapterLink.textContent =
-        `Chapter ${chapter} - ${chapterInfo.title}`;
+        `Chapter ${chapter} — ${chapterInfo.title}`;
 
     document.getElementById("section-name").textContent =
-        `${section} - ${chapterInfo.sections[section]}`;
+        `${section} — ${chapterInfo.sections[section]}`;
 
 
     // set problem info

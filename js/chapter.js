@@ -81,7 +81,7 @@ async function loadChapter() {
                     `&problem=${item.problem}`;
 
                 link.textContent =
-                    `Problem ${item.problem}`;
+                    `# ${item.problem}`;
 
                 link.classList.add("problem-link");
 
