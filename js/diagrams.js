@@ -1,7 +1,7 @@
 export const diagrams = {
     "8-8.3-6": `
         <svg class="problem-diagram"
-             viewBox="0 0 300 240"
+             viewBox="0 0 300 200"
              xmlns="http://www.w3.org/2000/svg">
 
             <defs>
@@ -59,7 +59,7 @@ export const diagrams = {
 
     "8-8.3-8": `
         <svg class="problem-diagram"
-             viewBox="0 0 300 260"
+             viewBox="0 0 300 200"
              xmlns="http://www.w3.org/2000/svg">
 
             <defs>
@@ -126,7 +126,7 @@ export const diagrams = {
 
     "8-8.3-10": `
         <svg class="problem-diagram"
-             viewBox="0 0 300 260"
+             viewBox="0 0 300 200"
              xmlns="http://www.w3.org/2000/svg">
 
             <line class="water-line"
