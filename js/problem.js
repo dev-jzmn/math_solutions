@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { getDiagram } from "./diagrams.js";
 
 const supabaseUrl = "https://mbupfomfbsrsorcrjlsr.supabase.co";
 const supabaseKey = "sb_publishable_XC7ALstTwgtB6zQIHwzTuQ_VOp0LF83";
@@ -16,6 +17,23 @@ const problemNumber = Number(params.get("problem"));
 console.log(chapter);
 console.log(section);
 console.log(problemNumber);
+
+// load diagrams
+const diagram = getDiagram(
+    chapter,
+    section,
+    problemNumber
+);
+
+const diagramContainer =
+    document.getElementById("problem-diagram");
+
+if (diagram) {
+    diagramContainer.innerHTML = diagram;
+    diagramContainer.hidden = false;
+} else {
+    diagramContainer.hidden = true;
+}
 
 // load problems from supabase solution table
 async function loadProblem() {
