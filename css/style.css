@@ -314,12 +314,12 @@ a:hover {
 }
 
 #open-feedback {
-    color:#d9757d;
-    border-color: #d9757d;
+    color:#ef7d86;
+    border-color: #ef7d86;
 }
 
 #open-feedback:hover {
-    background-color:#d9757d;
+    background-color:#ef7d86;
     color: white;
 }
 
@@ -436,12 +436,12 @@ a:hover {
     }
 
     #open-feedback {
-        color:#d9757d;
-        border-color: #d9757d;
+        color:#ef7d86;
+        border-color: #ef7d86;
     }
 
     #open-feedback:hover {
-        background-color:#d9757d;
+        background-color:#ef7d86;
         color: white;
     }
 }
