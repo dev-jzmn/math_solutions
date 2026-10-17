@@ -38,7 +38,8 @@ export const diagrams = {
 
             <text class="diagram-text"
                   x="150" y="225"
-                  text-anchor="middle">
+                  text-anchor="middle"
+                  transform="translate(0, -30)">
                 12 m
             </text>
 
@@ -51,7 +52,8 @@ export const diagrams = {
                   transform="translate(0, -30)"/>
 
             <text class="diagram-text"
-                  x="268" y="135">
+                  x="268" y="135"
+                  transform="translate(0, -15)">
                 4 m
             </text>
         </svg>
