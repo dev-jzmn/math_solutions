@@ -477,6 +477,15 @@ a:hover {
     fill: currentColor;
 }
 
+/* graph style */
+.graph-box {
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    margin: 1rem auto;
+    justify-content: center;
+}
+
 /* for admin page */
 #problem-form label {
     display: block;

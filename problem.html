@@ -12,6 +12,13 @@
             }
         };
     </script>
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css"
+    >
+    <script
+        src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js">
+    </script>
 </head>
 <nav class="breadcrumb">
     <a href="index.html">Home</a>
@@ -30,6 +37,10 @@
     <p id="problem-prompt"></p>
     <div id="problem-expression"></div>
     <div id="problem-diagram" hidden></div>
+    <div id="problem-graph-box"
+        class="jxgbox graph-box"
+        hidden>
+    </div>
 </section>
 
 <section>
@@ -45,6 +56,11 @@
     <div id="answer-box" class="solution-box" hidden>
         <h2>Answer</h2>
         <p id="answer"></p>
+        <div
+            id="answer-graph"
+            class="jxgbox graph-box"
+            hidden>
+        </div>
     </div>
 </section>
 

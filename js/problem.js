@@ -1,5 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { getDiagram } from "./diagrams.js";
+import { renderGraph } from "./graphs.js";
 
 const supabaseUrl = "https://mbupfomfbsrsorcrjlsr.supabase.co";
 const supabaseKey = "sb_publishable_XC7ALstTwgtB6zQIHwzTuQ_VOp0LF83";
@@ -48,8 +49,6 @@ async function loadProblem() {
     console.log("solution:", solution);
     console.log("error:", error);
 
-
-
     if (!solution) {
         document.getElementById("problem-title").textContent =
             "Problem not found";
@@ -64,6 +63,55 @@ async function loadProblem() {
         // invalid URL
         return;
     }
+
+    // graph loading
+    const problemGraphBox =
+    document.getElementById("problem-graph");
+
+    if (solution.problem_graph_key) {
+        problemGraphBox.hidden = false;
+
+        renderGraph(
+            solution.problem_graph_key,
+            "problem-graph"
+        );
+    }
+
+    let answerGraphRendered = false;
+
+    setupToggle(
+        "answer-button",
+        "answer-box",
+        "Show Answer",
+        "Hide Answer",
+
+        function () {
+            if (
+                solution.answer_graph_key &&
+                !answerGraphRendered
+            ) {
+                const graphBox =
+                    document.getElementById("answer-graph");
+
+                graphBox.hidden = false;
+
+                requestAnimationFrame(() => {
+                    renderGraph(
+                        solution.answer_graph_key,
+                        "answer-graph"
+                    );
+
+                    answerGraphRendered = true;
+                });
+            }
+        }
+    );
+
+    const g = document.getElementById("answer-graph");
+
+console.log(g.getBoundingClientRect());
+console.log(getComputedStyle(g).height);
+console.log(getComputedStyle(g).width);
 
     // get chapter info to show it on the top
     const chapterInfo = chapters[chapter];
@@ -168,7 +216,13 @@ async function loadProblem() {
 }
 
 // buttons for hints/answers/solutions
-async function setupToggle(buttonId, boxId, showText, hideText) {
+function setupToggle(
+    buttonId,
+    boxId,
+    showText,
+    hideText,
+    onOpen = null
+) {
     const button = document.getElementById(buttonId);
     const box = document.getElementById(boxId);
 
@@ -179,6 +233,10 @@ async function setupToggle(buttonId, boxId, showText, hideText) {
             button.textContent = showText;
         } else {
             button.textContent = hideText;
+
+            if (onOpen) {
+                onOpen();
+            }
         }
     });
 }
@@ -188,13 +246,6 @@ setupToggle(
     "hint-box",
     "Show Hint",
     "Hide Hint"
-);
-
-setupToggle(
-    "answer-button",
-    "answer-box",
-    "Show Answer",
-    "Hide Answer"
 );
 
 setupToggle(
