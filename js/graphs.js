@@ -30,8 +30,8 @@ const graphConfigs = {
         x: t => 3 * t + 2,
         y: t => 2 * t + 3,
 
-        tMin: -3,
-        tMax: 3,
+        tMin: -5,
+        tMax: 5,
 
         boundingbox: [-8, 12, 14, -8],
 
@@ -67,7 +67,7 @@ const graphConfigs = {
         tMin: -5,
         tMax: 5,
 
-        boundingbox: [-2, 3, 2, -1],
+        boundingbox: [-5, 3, 5, -3],
 
         arrow: {
             t1: 0.6,
@@ -119,7 +119,8 @@ export function renderGraph(key, containerId) {
                 ],
                 {
                     name: "",
-                    visible: false
+                    visible: false,
+                    fixed: true
                 }
             );
 
@@ -131,7 +132,8 @@ export function renderGraph(key, containerId) {
                 ],
                 {
                     name: "",
-                    visible: false
+                    visible: false,
+                    fixed: true
                 }
             );
 
