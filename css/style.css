@@ -485,6 +485,7 @@ a:hover {
     border-radius: 6px;
 
     font-size: 1rem;
+    background-color: white;
 }
 
 #search-type:focus {
