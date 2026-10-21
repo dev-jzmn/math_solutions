@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="css/style.css">
+<body>
+    <nav class="breadcrumb">
+        <a href="index.html">Home</a>
+    </nav>
+
+    <br>
+
+    <button id="search_again">search again?</button>
+
+    <label id="search_by_label" for="search-type" hidden>
+        Search by 
+    </label>
+
+    <select id="search-type" hidden>
+        <option value="problem">
+            Section & Problem Number
+        </option>
+
+        <option value="tag">
+            Tag
+        </option>
+    </select>
+
+
+    <form id="search-form" class="search-bar" hidden>
+
+        <div id="problem-search-fields">
+            <input
+                type="text"
+                id="search-input"
+                placeholder="e.g. 6.1 #24"
+            >
+        </div>
+
+    
+        <div id="tag-search-fields" hidden>
+
+            <div class="tag-input-row">
+                <input
+                    type="text"
+                    id="tag-input"
+                    placeholder="Search tags..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <div id="tag-suggestions" hidden></div>
+        </div>
+
+        <button type="submit">
+            Search
+        </button>
+
+    </form>
+
+    <br>
+    <div id="selected-tags"></div>
+
+    <p id="search-message"></p>
+
+    <h1>Tag Search Results</h1>
+
+    <div id="selected-tag-display"></div>
+    <br>
+    <div id="tag-results"></div>
+
+    <script type="module" src="js/tag_results.js"></script>
+    <script type="module" src="js/search.js"></script>
+</body>

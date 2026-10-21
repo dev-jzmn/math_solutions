@@ -42,16 +42,55 @@
         <h1>Math Solutions</h1>
     </header>
 
-    <form id="problem-search" class="search-bar">
-        <input
-            type="text"
-            id="search-input"
-            placeholder="Example: 6.1 #24"
-        >
-        <button type="submit">Search</button>
+    <label for="search-type">
+        Search by 
+    </label>
+
+    <select id="search-type">
+        <option value="problem">
+            Section & Problem Number
+        </option>
+
+        <option value="tag">
+            Tag
+        </option>
+    </select>
+
+    <form id="search-form" class="search-bar">
+
+        <div id="problem-search-fields">
+            <input
+                type="text"
+                id="search-input"
+                placeholder="e.g. 6.1 #24"
+            >
+        </div>
+
+    
+        <div id="tag-search-fields" hidden>
+
+            <div class="tag-input-row">
+                <input
+                    type="text"
+                    id="tag-input"
+                    placeholder="Search tags..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <div id="tag-suggestions" hidden></div>
+        </div>
+
+        <button type="submit">
+            Search
+        </button>
+
     </form>
+    <br>
+    <div id="selected-tags"></div>
 
     <p id="search-message"></p>
+
     <main>
 
         <h2>Calculus Stewart 9th edition</h2>

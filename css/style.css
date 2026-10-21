@@ -150,48 +150,13 @@ mjx-container[jax="CHTML"][display="true"] {
     min-width: 0;
 }
 
-/* search bar */
-.search-bar {
-    display: flex;
-    width: 100%;
-    max-width: 520px;
-
-    margin: 24px 0;
+/* tag result page */
+.problem-result {
+    padding: 0.2rem;
 }
 
-.search-bar input {
-    flex: 1;
-
-    padding: 12px 14px;
-
-    border: 1px solid #d6d6d6;
-    border-right: none;
-
-    border-radius: 10px 0 0 10px;
-
-    font-size: 1rem;
-    outline: none;
-}
-
-.search-bar input:focus {
-    border-color: var(--primary);
-}
-
-.search-bar button {
-    padding: 12px 18px;
-
-    border: 1px solid var(--primary);
-    border-radius: 0 10px 10px 0;
-
-    background-color: var(--primary);
-    color: white;
-
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.search-bar button:hover {
-    opacity: 0.9;
+.problem-result > a {
+    font-weight: bold;
 }
 
 /* links */
@@ -384,28 +349,18 @@ a:hover {
         padding: 24px 16px;
     }
 
+    #search-type {
+        max-width: none;
+    }
+
     .search-bar {
-        display: flex;
-        flex-direction: row;
         width: 100%;
     }
 
-    .search-bar input {
-        flex: 1;
+    #search-input,
+    #tag-input {
         min-width: 0;
-
-        border: 1px solid #d6d6d6;
-        border-right: none;
-        border-radius: 8px 0 0 8px;
-    }
-
-    .search-bar button {
-        width: auto;
-
-        border: 1px solid var(--primary);
-        border-radius: 0 8px 8px 0;
-
-        white-space: nowrap;
+        padding: 0 12px;
     }
 
     .problem-navigation {
@@ -443,6 +398,29 @@ a:hover {
     #open-feedback:hover {
         background-color:#ef7d86;
         color: white;
+    }
+
+     #search-type {
+        max-width: none;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+
+    #search-input,
+    #tag-input {
+        min-width: 0;
+        padding: 0 12px;
+    }
+
+    .search-bar > button {
+        padding: 0 14px;
+        white-space: nowrap;
+    }
+
+    #tag-suggestions {
+        max-height: 180px;
     }
 }
 
@@ -495,4 +473,167 @@ a:hover {
 #problem-form label {
     display: block;
     margin-bottom: 16px;
+}
+
+/* search bar */
+#search-type {
+    padding: 10px 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+
+    border: 1px solid #ccc;
+    border-radius: 6px;
+
+    font-size: 1rem;
+}
+
+#search-type:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(111, 156, 235, 0.15);
+    outline: none;
+}
+
+/* Selected tags */
+#selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    margin-bottom: 10px;
+}
+
+.tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 5px 10px;
+
+    border-radius: 999px;
+
+    background: rgba(111, 156, 235, 0.15);
+    color: var(--primary);
+
+    font-size: 0.85rem;
+}
+
+.tag-delete-button {
+    padding: 0;
+
+    border: none;
+    background: none;
+    color: inherit;
+
+    cursor: pointer;
+}
+
+.tag-delete-button:hover{
+    background: none;
+    color: inherit;
+}
+
+
+
+/* Search bar */
+.search-bar {
+    display: flex;
+
+    width: 100%;
+    max-width: 600px;
+}
+
+#problem-search-fields,
+#tag-search-fields {
+    position: relative;
+
+    flex: 1;
+    min-width: 0;
+}
+
+#search-input,
+#tag-input {
+    width: 100%;
+    height: 44px;
+
+    box-sizing: border-box;
+
+    padding: 0 12px;
+
+    border: 1px solid #ccc;
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+
+    font-size: 1rem;
+
+    outline: none;
+}
+
+#search-input:focus,
+#tag-input:focus {
+    border-color: var(--primary);
+
+}
+
+.search-bar > button {
+    height: 44px;
+
+    padding: 0 18px;
+
+    border: 1px solid var(--primary);
+    border-radius: 0 8px 8px 0;
+
+    background:  var(--primary);
+    color: white;
+
+    font-size: 1rem;
+
+    cursor: pointer;
+}
+
+
+/* Tag suggestions */
+#tag-suggestions {
+    position: absolute;
+
+    top: 48px;
+    left: 0;
+    right: 0;
+
+    padding: 5px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    background: white;
+
+    z-index: 10;
+}
+
+#tag-suggestions button {
+    width: 100%;
+
+    padding: 8px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: white;
+
+    text-align: left;
+
+    cursor: pointer;
+}
+
+#tag-suggestions button:hover {
+    background: rgba(111, 156, 235, 0.12);
+    color: var(--primary)
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .search-bar > button {
+        padding: 0 12px;
+    }
 }
