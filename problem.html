@@ -33,15 +33,59 @@
 </nav>
 
 <br>
+<button id="search_again">Search Again?</button>
 
-<form id="problem-search" class="search-bar">
+<label id="search_by_label" for="search-type" hidden>
+    Search by 
+</label>
+
+<select id="search-type" hidden>
+    <option value="problem">
+        Section & Problem Number
+    </option>
+
+    <option value="tag">
+        Tag
+    </option>
+</select>
+
+
+<form id="search-form" class="search-bar" hidden>
+
+    <div id="problem-search-fields">
         <input
             type="text"
             id="search-input"
-            placeholder="Search a specific problem. Example: 6.1 #24"
+            placeholder="e.g. 6.1 #24"
         >
-        <button type="submit">Search</button>
+    </div>
+
+
+    <div id="tag-search-fields" hidden>
+
+        <div class="tag-input-row">
+            <input
+                type="text"
+                id="tag-input"
+                placeholder="Search tags..."
+                autocomplete="off"
+            >
+        </div>
+
+        <div id="tag-suggestions" hidden></div>
+    </div>
+
+    <button type="submit">
+        Search
+    </button>
+
 </form>
+
+<div id="search-response" hidden>
+    <br>
+    <div id="selected-tags"></div>
+    <p id="search-message"></p>
+</div>
 
 <h1 id="problem-title"></h1>
 

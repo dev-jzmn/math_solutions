@@ -320,3 +320,12 @@ feedbackButton.addEventListener("click", async function () {
 
     document.getElementById("feedback-message").value = "";
 });
+
+document.getElementById("search_again")
+        .addEventListener("click", function(){
+            document.getElementById("search_by_label").hidden = false;
+            document.getElementById("search-type").hidden = false;
+            document.getElementById("search-form").hidden = false;
+            document.getElementById("search-response").hidden = false;
+            document.getElementById("search_again").hidden = true;
+})

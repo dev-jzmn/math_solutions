@@ -16,14 +16,58 @@
         <a id="chapter-title"></a>
     </nav>
     <br>
-    <form id="problem-search" class="search-bar">
-        <input
-            type="text"
-            id="search-input"
-            placeholder="Search a specific problem. Example: 6.1 #24"
-        >
-        <button type="submit">Search</button>
+
+    <label id="search_by_label" for="search-type">
+        Search by 
+    </label>
+
+    <select id="search-type">
+        <option value="problem">
+            Section & Problem Number
+        </option>
+
+        <option value="tag">
+            Tag
+        </option>
+    </select>
+
+
+    <form id="search-form" class="search-bar">
+
+        <div id="problem-search-fields">
+            <input
+                type="text"
+                id="search-input"
+                placeholder="e.g. 6.1 #24"
+            >
+        </div>
+
+    
+        <div id="tag-search-fields" hidden>
+
+            <div class="tag-input-row">
+                <input
+                    type="text"
+                    id="tag-input"
+                    placeholder="Search tags..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <div id="tag-suggestions" hidden></div>
+        </div>
+
+        <button type="submit">
+            Search
+        </button>
+
     </form>
+
+    <br>
+    <div id="selected-tags"></div>
+
+    <p id="search-message"></p>
+
     <h1 id="chapter-title"></h1>
 
     <div id="chapter-content"></div>
