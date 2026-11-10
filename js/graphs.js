@@ -24,6 +24,73 @@ const graphConfigs = {
         ]
     },
 
+    "centroid-8-3-30": {
+        type: "area-between-curves",
+
+        regions: [
+            {
+                upper: x => 2 - x * x,
+                lower: x => x,
+                xStart: -2,
+                xEnd: 1
+            }
+        ],
+
+        curves: [
+            {
+                fn: x => 2 - x * x,
+                min: -3,
+                max: 2
+            },
+            {
+                fn: x => x,
+                min: -3,
+                max: 2
+            }
+        ],
+
+        boundingbox: [-3, 3, 2, -3]
+    },
+
+    "centroid-8-3-32": {
+        type: "area-between-curves",
+
+        regions: [
+            {
+                upper: x => x * x * x,
+                lower: x => 0,
+                xStart: 0,
+                xEnd: 1
+            },
+            {
+                upper: x => 2 - x,
+                lower: x => 0,
+                xStart: 1,
+                xEnd: 2
+            }
+        ],
+
+        curves: [
+            {
+                fn: x => x * x * x,
+                min: -2.3,
+                max: 2.3
+            },
+            {
+                fn: x => 2 - x,
+                min: -2.3,
+                max: 3
+            },
+            {
+                fn: x => 0,
+                min: -2.3,
+                max: 3
+            }
+        ],
+
+        boundingbox: [-0.5, 1.5, 2.5, -0.5]
+    },
+
     "param-line-10.1-8": {
         type: "parametric",
 
@@ -174,7 +241,6 @@ const graphConfigs = {
         loopEnd: 1,
         boundingbox: [-1.5, 1.5, 1.5, -1.5]
     }
-    
 };
 
 function addDirectionArrow(
@@ -270,6 +336,62 @@ function fillParametricLoop(
     );
 }
 
+function fillBetweenCurves(
+    board,
+    upperFunc,
+    lowerFunc,
+    xStart,
+    xEnd,
+    samples = 120
+) {
+    const points = [];
+
+    // goes clockwise:
+    // upper left -> upper right -> lower right -> lower left
+    // upper bound: xStart -> xEnd
+    for (let i = 0; i <= samples; i++) {
+        const x =
+            xStart + (xEnd - xStart) * i / samples;
+
+        const p = board.create("point", [x, upperFunc(x)], {
+            visible: false,
+            fixed: true,
+            name: ""
+        });
+
+        points.push(p);
+    }
+
+    // lower bound: xEnd -> xStart
+    for (let i = samples; i >= 0; i--) {
+        const x =
+            xStart + (xEnd - xStart) * i / samples;
+
+        const p = board.create("point", [x, lowerFunc(x)], {
+            visible: false,
+            fixed: true,
+            name: ""
+        });
+
+        points.push(p);
+    }
+
+    return board.create("polygon", points, {
+        fillColor: '#54b2fe',
+        fillOpacity: 0.3,
+
+        borders: {
+            strokeOpacity: 0
+        },
+
+        vertices: {
+            visible: false
+        },
+
+        fixed: true
+    });
+}
+
 export function renderGraph(key, containerId) {
     const config = graphConfigs[key];
 
@@ -291,6 +413,34 @@ export function renderGraph(key, containerId) {
             config.xMin,
             config.xMax
         ]);
+    }
+
+    else if (config.type === "area-between-curves") {
+
+        config.regions.forEach(region => {
+            fillBetweenCurves(
+                board,
+                region.upper,
+                region.lower,
+                region.xStart,
+                region.xEnd
+            );
+        });
+
+        config.curves.forEach(curve => {
+            board.create(
+                "functiongraph",
+                [
+                    curve.fn,
+                    curve.min,
+                    curve.max
+                ],
+                {
+                    strokeWidth: 2,
+                    fixed: true
+                }
+            );
+        });
     }
 
     else if (config.type === "parametric") {
@@ -349,7 +499,7 @@ export function renderGraph(key, containerId) {
                 x,y
             ],
             {
-                name: "(3, -2)",
+                name: "",
                 visible: true,
                 fixed: true
             }
